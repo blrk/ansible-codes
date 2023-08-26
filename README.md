@@ -1,5 +1,23 @@
 ### ansible-codes
 
+#### Create amazon Linux Instance - Ansible server
+* update the vm
+``` bash
+sudo yum update -y
+```
+* Install Ansible
+``` bash
+sudo yum install python -y
+sudo yum install python-pip -y
+pip install ansible
+```
+* Verify the ansible installation
+``` bash
+ansible --version
+```
+* add the ec2-user to the sudoers file
+
+#### Create amazon EC2 instance 
 #### login to ec2 instance
 
 ``` bash
@@ -34,6 +52,6 @@ ssh ec2-user@ec2-54-224-2-239.compute-1.amazonaws.com
 
 * you can login into ec2 instacne without using the pem key
 
-
+https://www.digitalocean.com/community/tutorial-series/how-to-write-ansible-playbooks
 
 
