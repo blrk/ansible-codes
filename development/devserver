@@ -6,6 +6,9 @@ app1.sc.com
 172.168.14.5
 172.168.14.8
 
-[scb]
+[scb1]
 192.168.122.80
+
+[scb]
+ec2-user@ec2-54-224-2-239.compute-1.amazonaws.com
 
