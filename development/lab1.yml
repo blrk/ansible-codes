@@ -1,5 +1,4 @@
 ---
   - hosts: scb
     tasks:
-      - name: get the host name
-        command: hostname
+      - command: hostname

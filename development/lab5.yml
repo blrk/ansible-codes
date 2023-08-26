@@ -1,0 +1,18 @@
+---
+  - hosts: scb 
+    become: true
+    tasks:
+      - name: Copy file with owner and permissions
+        copy:
+          src: repos/mongo.repo
+          dest: /etc/yum.repos.d/
+
+      - name: Install mongodb-org package
+        yum:
+          name: mongodb-org
+          state: present
+
+      - name: Start the service
+        service:
+          name: mongod
+          state: started

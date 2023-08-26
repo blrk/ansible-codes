@@ -1,0 +1,9 @@
+---
+  - hosts: scb 
+    become: true
+    tasks:
+      - name: Install common software requirements
+        yum:
+          state: present
+          name: 
+            - libc.so.6
