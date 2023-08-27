@@ -1,0 +1,13 @@
+# Looping
+---
+  - hosts: scb 
+    become: true
+    tasks:
+      - name: Install packages
+        yum:
+          name: "{{ item }}"
+          update_cache: yes
+        loop:
+          - net-tools
+          - emacs
+          - curl

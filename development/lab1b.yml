@@ -1,0 +1,10 @@
+# Create a use variables
+---
+  - hosts: scb
+    vars:
+      - username: blrk
+      - homepath: /home/blrk
+    tasks:
+      - name: print variable
+        debug:
+          msg: "username: {{ username }}, home directory path: {{ homepath }}" 

@@ -10,7 +10,7 @@ app1.sc.com
 192.168.122.80
 
 [scb]
-ec2-34-201-152-37.compute-1.amazonaws.com
+ec2-52-23-244-17.compute-1.amazonaws.com
 
 [scb:vars]
 ansible_user=ec2-user
@@ -18,4 +18,5 @@ ansible_user=ec2-user
 # The Python 2 yum module is needed for this module. 
 # If you require Python 3 support use the `dnf` Ansible module instead.
 # ansible_python_interpreter=/usr/bin/python3
+ansible_python_interpreter=/usr/bin/python2
 

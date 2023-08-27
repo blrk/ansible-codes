@@ -1,4 +1,4 @@
-# Access System Information (Facts) 
+# Fetching the facts
 ---
   - hosts: scb 
     become: true

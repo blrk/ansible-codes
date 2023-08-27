@@ -1,0 +1,15 @@
+# condition based execution
+---
+  - hosts: scb 
+    become: true
+    #ignore_errors: yes
+    vars:
+      - create_file: yes
+      - user: ec2-user  
+    tasks:
+      - name: create a file in user's home directory
+        file:
+          path: /home/{{ user }}/data.txt
+          state: touch 
+          modification_time: now
+        when: create_file

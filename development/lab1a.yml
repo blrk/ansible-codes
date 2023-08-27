@@ -1,0 +1,7 @@
+# printing a message
+---
+  - hosts: scb
+    tasks:
+      - name: printing a message
+        debug:
+          msg: Hello, Welcome to axess academy training 
