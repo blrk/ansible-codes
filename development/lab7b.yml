@@ -1,0 +1,59 @@
+# Looping
+---
+  - hosts: scb 
+    become: true
+    vars:
+      page_title: My handler Landing Page
+      page_description: This is my handler page description.
+      doc_root: /usr/share/nginx/html/mypage
+    tasks:
+      - name: install nginx in amazon 2 linux
+        package:
+          name: nginx    
+          state: present
+      
+      - name: Creates directory
+        file:
+          path: /etc/nginx/sites-available/
+          state: directory  
+
+      - name : create file deafult  
+        file:
+          path: /etc/nginx/sites-available/deafult
+          state: touch
+          mode: '0744'           
+
+      - name: add  a line "include /etc/nginx/sites-enabled/*;"
+        lineinfile:
+          path: /etc/nginx/nginx.conf
+          line: include /etc/nginx/sites-enabled/*
+          create: yes
+
+      - name: Make sure new doc root exists
+        file:
+          path: "{{ doc_root }}"
+          state: directory
+          mode: '0755'
+
+      - name: Apply Page Template
+        template:
+          src: templates/landing-page.html.j2
+          dest: "{{ doc_root }}/index.html"
+
+      - name: Replace document root on default Nginx configuration
+        replace:
+          path: /etc/nginx/sites-available/default
+          regexp: '(\s+)root /usr/share/nginx/html;(\s+.*)?$' 
+          replace: \g<1>root {{ doc_root }};\g<2>
+        notify: Restart Nginx
+
+      - name: enable  the service
+        service:
+          name: nginx
+          enabled: yes
+    handlers:    
+      - name: start the service
+        service:
+          name: nginx
+          state: restarted
+          
