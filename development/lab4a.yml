@@ -1,0 +1,13 @@
+# Looping
+---
+  - hosts: scb 
+    become: true
+    tasks:
+      - name: creates users files
+        file:
+          path: /tmp/ansible-{{ item }}
+          state: touch
+        loop:
+          - file1
+          - file2
+          - file3
