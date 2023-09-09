@@ -12,6 +12,23 @@
           name: nginx    
           state: present
       
+      - name: Creates directory
+        file:
+          path: /etc/nginx/sites-available/
+          state: directory  
+
+      - name : create file deafult  
+        file:
+          path: /etc/nginx/sites-available/deafult
+          state: touch
+          mode: '0744'           
+
+      - name: add  a line "include /etc/nginx/sites-enabled/*;"
+        lineinfile:
+          path: /etc/nginx/nginx.conf
+          line: include /etc/nginx/sites-enabled/*
+          create: yes
+
       - name: Make sure new doc root exists
         file:
           path: "{{ doc_root }}"
@@ -26,8 +43,15 @@
       - name: copy deafult config
         copy:
           src: templates/nginx_default
-          dest: /etc/nginx/conf.d/server1.conf     
+          dest: /etc/nginx/sites-available/default 
       
+      - name: Replace document root on default Nginx configuration
+        replace:
+          path: /etc/nginx/sites-available/default
+          regexp: '(\s+)root /usr/share/nginx/html;(\s+.*)?$' 
+          replace: \g<1>root {{ doc_root }};\g<2>
+        notify: Restart Nginx
+
       - name: enable  the service
         service:
           name: nginx

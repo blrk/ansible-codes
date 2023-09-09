@@ -1,14 +1,16 @@
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
+        listen       8080;        
+        server_name  _;
+        root         /usr/share/nginx/html/mypage;
 
-        #root /usr/share/nginx/html;
-        root /var/www;
-        index index.html index.htm;
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
 
-        server_name localhost;
-
-        location / {
-                try_files $uri $uri/ =404;
+        error_page 404 /404.html;
+        location = /404.html {
         }
-}
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+    }
