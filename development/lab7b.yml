@@ -6,11 +6,24 @@
       page_title: My handler Landing Page
       page_description: This is my handler page description.
       doc_root: /usr/share/nginx/html/mypage
-    tasks:
+    tasks:      
+      - name: Enable nginx for amazon linux 2
+        shell: "amazon-linux-extras enable nginx1"
+
       - name: install nginx in amazon 2 linux
         package:
           name: nginx    
           state: present
+      
+      - name: enable  the service
+        service:
+          name: nginx
+          enabled: yes
+      
+      - name: Ensure nginx is running
+        service:
+          name: nginx
+          state: started
       
       - name: Make sure new doc root exists
         file:
@@ -26,14 +39,11 @@
       - name: copy deafult config
         copy:
           src: templates/nginx_default
-          dest: /etc/nginx/conf.d/server1.conf     
-      
-      - name: enable  the service
-        service:
-          name: nginx
-          enabled: yes
+          dest: /etc/nginx/conf.d/server1.conf                
+        notify: 
+        - restart Nginx        
     handlers:    
-      - name: start the service
+      - name: restart Nginx
         service:
           name: nginx
           state: restarted
