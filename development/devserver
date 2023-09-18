@@ -10,7 +10,7 @@ app1.sc.com
 192.168.122.80
 
 [scb]
-ec2-54-235-234-95.compute-1.amazonaws.com
+ec2-52-71-251-140.compute-1.amazonaws.com
 
 [scb:vars]
 ansible_user=ec2-user

@@ -1,0 +1,16 @@
+---
+  - hosts: scb 
+    become: true    
+    tasks: 
+    - name: Get packages that can be upgraded
+      ansible.builtin.yum:
+        list: '*'    
+        state: latest 
+        update_cache: yes
+      register: yum_update_status
+      when: ansible_facts['distribution'] == "Amazon"
+ 
+    - name: List packages that can be upgraded
+      ansible.builtin.debug:         
+        msg: "{{ yum_update_status.results }}"
+        

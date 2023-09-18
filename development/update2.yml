@@ -1,0 +1,15 @@
+---
+  - hosts: scb 
+    become: true     
+    tasks:   
+    - name: Gather available security updates
+      yum:
+        list: '*'
+        update_cache: yes
+        security: yes
+        bugfix: no
+      register: update_result
+
+    - name: Show result
+      debug:
+        msg: "{{ update_result.results | map(attribute='name') | list }}"
