@@ -1,0 +1,39 @@
+---
+- hosts: scb 
+  become: true    
+  tasks: 
+    - name: Check the the availability of a service and register
+      service:
+        name: chronyd
+      register: chronyd_service_status
+      tags: ntp_status
+    
+    - name: check the ntp service status
+      debug:
+        var: chronyd_service_status.status.ActiveState
+      tags: ntp_status
+
+    - name: Enable and start ntp service
+      service:
+        name: chronyd
+        state: started
+        enabled: true
+      tags: ntp_start_enable
+    
+    - name: stop ntp service
+      service:
+        name: chronyd
+        state: stopped       
+      tags: ntp_stop
+
+    - name: start ntp service
+      service:
+        name: chronyd
+        state: started       
+      tags: ntp_start
+
+    - name: restart ntp service
+      service:
+        name: chronyd
+        state: restarted       
+      tags: ntp_restart
