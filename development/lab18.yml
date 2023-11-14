@@ -1,0 +1,10 @@
+---
+- hosts: scb 
+  become: true    
+  tasks: 
+    - name: Playbook using valut
+      include_vars:
+        file: db-pass.yml
+    - name: Print variable
+      debug:
+        var: password
