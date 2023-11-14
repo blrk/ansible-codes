@@ -1,0 +1,18 @@
+---
+  - hosts: scb 
+    become: true    
+    tasks: 
+    - name: Handling failures demo
+      block:
+        - name: Compare files
+          raw: diff /home/ec2-user/file1.txt /home/ec2-user/file2.txt
+          register: diff_cmd
+          failed_when: diff_cmd.rc == 0 or diff_cmd.rc >= 2
+      rescue:
+        - name: display errors
+          debug:
+            msg: 'Both the files are identical'
+      always:
+        - name:
+          debug:
+            msg: "this block will execute always"
